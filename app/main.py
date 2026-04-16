@@ -1,20 +1,18 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from app.ai import get_ai_response
+from services.game_engine import GameEngine
 
 app = FastAPI()
 
-# request model
 class ActionRequest(BaseModel):
     session_id: str
     input: str
 
-# temporary in-memory state (we'll replace with DB later)
-game_state = {
-    "location": "village",
-    "player_hp": 100,
-    "enemy": {"name": "goblin", "hp": 30}
-}
+# add game state from the game engine
+game_engine = GameEngine()
+game_state = game_engine.state
+
 
 @app.post("/action")
 async def handle_action(req: ActionRequest):
