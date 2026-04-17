@@ -11,6 +11,10 @@ class GameEngine:
             "enemy": Enemy.random_enemy().model_dump(),
         }
 
+    def get_state(self) -> Dict[str, Any]:
+
+        return self.state
+
     def apply_state_update(self, state_update: dict) -> str:
         state_update = self.validate_state_update(state_update)
         # Update player HP
