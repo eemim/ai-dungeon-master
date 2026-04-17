@@ -21,7 +21,9 @@ class Enemy(BaseModel):
     def random_enemy(cls) -> "Enemy":
 
         enemies = [Goblin(), Orc(), Troll(), Skeleton(), Vampire()]
-        return random.choice(enemies)
+        enemy = random.choice(enemies)
+        print(enemy)
+        return enemy
 
 
 class Goblin(Enemy):
