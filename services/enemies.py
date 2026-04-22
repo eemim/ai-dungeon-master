@@ -27,36 +27,31 @@ class Enemy(BaseModel):
 
 
 class Goblin(Enemy):
-    def __init__(self):
-        super().__init__(
-            name="Goblin", hp=30, attack_power=5, special_ability="Sneaky Strike"
-        )
-
+    name: str = "Goblin"
+    hp: int = 30
+    attack_power: int = 5
+    special_ability: str = "Sneaky Strike"
 
 class Orc(Enemy):
-    def __init__(self):
-        super().__init__(
-            name="Orc", hp=50, attack_power=10, special_ability="Berserk Rage"
-        )
-
+    name: str = "Orc"
+    hp: int = 50
+    attack_power: int = 10
+    special_ability: str = "Berserk Rage"
 
 class Troll(Enemy):
-    def __init__(self):
-        super().__init__(
-            name="Troll", hp=80, attack_power=15, special_ability="Bugger Smash"
-        )
-
+    name: str = "Troll"
+    hp: int = 80
+    attack_power: int = 15
+    special_ability: str = "Bugger Smash"
 
 class Skeleton(Enemy):
-
-    def __init__(self):
-        super().__init__(
-            name="Skeleton", hp=20, attack_power=7, special_ability="Bone Shield"
-        )
-
+    name: str = "Skeleton"
+    hp: int = 20
+    attack_power: int = 7
+    special_ability: str = "Bone Shield"
 
 class Vampire(Enemy):
-    def __init__(self):
-        super().__init__(
-            name="Vampire", hp=40, attack_power=12, special_ability="Life Drain"
-        )
+    name: str = "Vampire"
+    hp: int = 40
+    attack_power: int = 12
+    special_ability: str = "Life Drain"

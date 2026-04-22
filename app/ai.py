@@ -1,6 +1,8 @@
 import os
 import json
 from groq import AsyncGroq
+from groq.types.chat import ChatCompletionMessageParam
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -87,16 +89,16 @@ def parse_ai_response(content: str) -> dict:
     }
 
 
-async def get_ai_response(user_input: str, state: dict):
+async def get_ai_response(user_input: str, state: dict, history: list[ChatCompletionMessageParam]) -> dict:
     completion = await client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
+            *history,
             {"role": "user", "content": build_user_message(user_input, state)},
         ],
         temperature=0.8,
         stream=False,
-        stop=["\n\n"],
         max_completion_tokens=500,
     )
     raw_content = completion.choices[0].message.content
