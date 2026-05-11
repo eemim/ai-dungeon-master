@@ -13,7 +13,6 @@ class ActionRequest(BaseModel):
 
 
 # add game state from the game engine
-game_engine = GameEngine()
 sessions: dict[str, GameEngine] = {}
 
 
@@ -25,19 +24,28 @@ async def handle_action(req: ActionRequest):
         sessions[req.session_id] = GameEngine()
     game_engine = sessions[req.session_id]
 
+    if not game_engine.state["intro_seen"]:
+        intro = game_engine.get_intro()
+        game_engine.add_to_history("start", intro)
+        game_engine.state["intro_seen"] = True
+        return {
+            "action": "intro",
+            "narration": intro,
+            "state": game_engine.get_state(),
+        }
+
     response = await get_ai_response(
         req.input,
         game_engine.get_state(),
         # defaults to last 3 turns
         game_engine.get_history()
     )
-    result = game_engine.apply_state_update(response["state_update"])
+    result = game_engine.resolve_action(response["action"])
     game_engine.add_to_history(req.input, response["narration"])
     
     return {
         "action": response["action"],
         "narration": response["narration"],
-        "state_update": response["state_update"],
         "result": result,
         "state": game_engine.get_state(),
     }

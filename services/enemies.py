@@ -7,6 +7,7 @@ class Enemy(BaseModel):
     hp: int
     attack_power: int
     special_ability: str
+    enemy_exposed: bool = False
     alive: bool = True
 
     def attack(self) -> int:
@@ -22,7 +23,7 @@ class Enemy(BaseModel):
 
         enemies = [Goblin(), Orc(), Troll(), Skeleton(), Vampire()]
         enemy = random.choice(enemies)
-        print(enemy)
+        # print(enemy)
         return enemy
 
 
@@ -42,7 +43,7 @@ class Troll(Enemy):
     name: str = "Troll"
     hp: int = 80
     attack_power: int = 15
-    special_ability: str = "Bugger Smash"
+    special_ability: str = "Booger Smash"
 
 class Skeleton(Enemy):
     name: str = "Skeleton"
